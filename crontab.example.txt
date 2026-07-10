@@ -1,0 +1,15 @@
+# Example crontab entry — run `crontab -e` on your VPS and add a line like:
+#
+# Twice daily at 11:00 and 17:30 server-local time:
+0 11 * * * /full/path/to/garba-promo-bot/scripts/run_scheduler.sh
+30 17 * * * /full/path/to/garba-promo-bot/scripts/run_scheduler.sh
+#
+# Or, if you'd rather just check every hour and let the script decide
+# what's actually due (simplest, and harmless to run this often):
+0 * * * * /full/path/to/garba-promo-bot/scripts/run_scheduler.sh
+#
+# Replace /full/path/to/garba-promo-bot with the actual path on your VPS,
+# e.g. /home/youruser/garba-promo-bot
+#
+# If you're using an agent runner like Hermes instead of raw cron, point it
+# at scripts/run_scheduler.sh as the command to execute on the same schedule.

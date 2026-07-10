@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+venv/
+node_modules/
+frontend/dist/
+content/queue.json
+content/generated/*.jpg
+logs/*.log

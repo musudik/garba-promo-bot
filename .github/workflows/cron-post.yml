@@ -1,0 +1,42 @@
+name: Post scheduled content
+
+on:
+  schedule:
+    # Runs at 09:00 and 15:30 UTC daily = 11:00 and 17:30 in Germany/Switzerland
+    # during CEST (summer time). Adjust if posting outside summer months —
+    # GitHub Actions cron is always UTC, it does not follow local DST.
+    - cron: "0 9 * * *"
+    - cron: "30 15 * * *"
+  workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scheduler
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          GITHUB_REPO: ${{ github.repository }}
+        run: python scripts/post_scheduler.py
+
+      - name: Commit updated schedule.csv
+        run: |
+          git config user.name "garba-promo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add content/schedule.csv
+          git diff --quiet --cached || git commit -m "Update schedule after posting run [skip ci]"
+          git push
