@@ -9,8 +9,8 @@ EVENT_DATE = date(2026, 10, 25)
 # PLACEHOLDER DATES — edit these once you lock in real ticket dates.
 # Everything in schedule.csv that references an early-bird push is built
 # around these two constants, so changing them here is the only edit needed.
-EARLY_BIRD_LAUNCH_DATE = date(2026, 8, 1)   # <-- set your real ticket-open date
-EARLY_BIRD_DEADLINE_DATE = date(2026, 9, 15)  # <-- set your real early-bird cutoff
+EARLY_BIRD_LAUNCH_DATE = date(2026, 7, 17)   # <-- set your real ticket-open date
+EARLY_BIRD_DEADLINE_DATE = date(2026, 8, 7)  # <-- set your real early-bird cutoff
 
 # Target audience cities. Add/remove freely — generate_captions.py will
 # create one caption variant per city automatically.
